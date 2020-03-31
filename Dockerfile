@@ -25,7 +25,7 @@ RUN adduser \
     --disabled-password \
     --gecos "$USER" \
     --home /var/www \
-    --ingroup "$PGID" \
+    --ingroup users \
     --no-create-home \
     --uid "$PUID" \
     --shell /bin/nologin \

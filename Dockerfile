@@ -86,4 +86,4 @@ RUN set -ex; \
 COPY entrypoint.sh /usr/local/bin/
 
 ENTRYPOINT ["entrypoint.sh"]
-CMD ["php-fpm"]
+CMD ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf"]

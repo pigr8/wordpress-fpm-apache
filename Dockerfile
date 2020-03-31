@@ -8,9 +8,10 @@ RUN apk add --no-cache \
 		sed \
 # Ghostscript is required for rendering PDF previews
 		ghostscript \
-# Apache2 install
+# Apache2 with FPM and HTTP/2 support
 		apache2 \
 		apache2-proxy \
+		apache2-http2 \
 # Supervisor install
 		supervisor
 

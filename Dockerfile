@@ -87,6 +87,7 @@ RUN set -ex; \
 	chown -R www-data:www-data /usr/src/wordpress
 
 COPY entrypoint.sh /usr/local/bin/
+COPY httpd.conf /etc/apache2/
 COPY supervisord.conf /etc/
 
 ENTRYPOINT ["entrypoint.sh"]

@@ -16,20 +16,18 @@ RUN apk add --no-cache \
 # Supervisor install
 		supervisor
 
-ENV USER=abc
 ENV PUID=1000
-ENV PGID=100
 
 #RUN adduser --disabled-password --gecos "abc" --home /var/www --ingroup users --no-create-home --uid 1026 --shell /bin/nologin abc
 RUN adduser \
     --disabled-password \
-    --gecos "$USER" \
+    --gecos abc \
     --home /var/www \
     --ingroup users \
     --no-create-home \
     --uid "$PUID" \
     --shell /bin/nologin \
-    "$USER"
+    abc
 
 # install the PHP extensions we need (https://make.wordpress.org/hosting/handbook/handbook/server-environment/#php-extensions)
 RUN set -ex; \
@@ -101,7 +99,7 @@ RUN set -ex; \
 # upstream tarballs include ./wordpress/ so this gives us /usr/src/wordpress
 	tar -xzf wordpress.tar.gz -C /usr/src/; \
 	rm wordpress.tar.gz; \
-	chown -R "$PUID":"$PGID" /usr/src/wordpress
+	chown -R abc:users /usr/src/wordpress
 
 COPY entrypoint.sh /usr/local/bin/
 COPY httpd.conf /etc/apache2/

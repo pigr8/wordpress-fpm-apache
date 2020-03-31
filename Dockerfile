@@ -10,6 +10,7 @@ RUN apk add --no-cache \
 		ghostscript \
 # Apache2 install
 		apache2 \
+		apache2-proxy \
 # Supervisor install
 		supervisor
 

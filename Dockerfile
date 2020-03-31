@@ -78,16 +78,14 @@ VOLUME /var/www/html
 
 ENV WORDPRESS_VERSION 5.3.2
 ENV WORDPRESS_SHA1 fded476f112dbab14e3b5acddd2bcfa550e7b01b
-ENV PUID 1026
 
-#RUN adduser --disabled-password --gecos "abc" --home /var/www --ingroup users --no-create-home --uid 1026 --shell /bin/nologin abc
 RUN adduser \
     --disabled-password \
     --gecos abc \
     --home /var/www \
     --ingroup users \
     --no-create-home \
-    --uid "$PUID" \
+    --uid 1026 \
     --shell /bin/nologin \
     abc
 

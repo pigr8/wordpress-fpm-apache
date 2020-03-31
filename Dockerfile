@@ -12,6 +12,7 @@ RUN apk add --no-cache \
 		apache2 \
 		apache2-proxy \
 		apache2-http2 \
+		apache2-ssl \
 # Supervisor install
 		supervisor
 

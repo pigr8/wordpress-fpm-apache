@@ -15,6 +15,17 @@ RUN apk add --no-cache \
 # Supervisor install
 		supervisor
 
+#RUN adduser --disabled-password --gecos "abc" --home /var/www --ingroup users --no-create-home --uid 1026 --shell /bin/nologin abc
+
+#RUN adduser \
+#    --disabled-password \
+#    --gecos "" \
+#    --home "$(pwd)" \
+#    --ingroup "$USER" \
+#    --no-create-home \
+#    --uid "$UID" \
+#    "$USER"
+
 # install the PHP extensions we need (https://make.wordpress.org/hosting/handbook/handbook/server-environment/#php-extensions)
 RUN set -ex; \
 	\

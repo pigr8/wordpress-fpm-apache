@@ -18,7 +18,7 @@ RUN apk add --no-cache \
 
 ENV USER=abc
 ENV PUID=1000
-ENV PGID=1000
+ENV PGID=100
 
 #RUN adduser --disabled-password --gecos "abc" --home /var/www --ingroup users --no-create-home --uid 1026 --shell /bin/nologin abc
 RUN adduser \

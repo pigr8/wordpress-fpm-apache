@@ -8,8 +8,10 @@ RUN apk add --no-cache \
 		sed \
 # Ghostscript is required for rendering PDF previews
 		ghostscript \
-# Apache2 install	
-		apache2
+# Apache2 install
+		apache2 \
+# Supervisor install
+		supervisor
 
 # install the PHP extensions we need (https://make.wordpress.org/hosting/handbook/handbook/server-environment/#php-extensions)
 RUN set -ex; \
@@ -84,6 +86,7 @@ RUN set -ex; \
 	chown -R www-data:www-data /usr/src/wordpress
 
 COPY entrypoint.sh /usr/local/bin/
+COPY supervisord.conf /etc/
 
 ENTRYPOINT ["entrypoint.sh"]
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf"]

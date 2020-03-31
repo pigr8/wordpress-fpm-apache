@@ -29,6 +29,8 @@ RUN set -ex; \
 		mysqli \
 		opcache \
 		zip \
+		pdo \
+		pdo_mysql \
 	; \
 	pecl install imagick-3.4.4; \
 	docker-php-ext-enable imagick; \

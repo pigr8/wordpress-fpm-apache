@@ -27,28 +27,28 @@ if [[ "$1" == apache2* ]] || [ "$1" == php-fpm ]; then
 	if [ "$(id -u)" = '0' ]; then
 		case "$1" in
 			apache2*)
-				user=abc
-				group=users
+				user="${APACHE_RUN_USER:-www-data}"
+				group="${APACHE_RUN_GROUP:-www-data}"
 
 				# strip off any '#' symbol ('#1000' is valid syntax for Apache)
-				# pound='#'
-				# user="${user#$pound}"
-				# group="${group#$pound}"
+				pound='#'
+				user="${user#$pound}"
+				group="${group#$pound}"
 				;;
 			*) # php-fpm
-				user=abc
-				group=users
+				user='www-data'
+				group='www-data'
 				;;
 		esac
 	else
-		user=abc
-		group=users
+		user="$(id -u)"
+		group="$(id -g)"
 	fi
 
 	if [ ! -e index.php ] && [ ! -e wp-includes/version.php ]; then
 		# if the directory exists and WordPress doesn't appear to be installed AND the permissions of it are root:root, let's chown it (likely a Docker-created directory)
 		if [ "$(id -u)" = '0' ] && [ "$(stat -c '%u:%g' .)" = '0:0' ]; then
-			chown abc:users .
+			chown "$user:$group" .
 		fi
 
 		echo >&2 "WordPress not found in $PWD - copying now..."
@@ -59,13 +59,13 @@ if [[ "$1" == apache2* ]] || [ "$1" == php-fpm ]; then
 			--create
 			--file -
 			--directory /usr/src/wordpress
-			--owner "$UID" --group "$GID"
+			--owner "$user" --group "$group"
 		)
 		targetTarArgs=(
 			--extract
 			--file -
 		)
-		if [ "$UID" != '0' ]; then
+		if [ "$user" != '0' ]; then
 			# avoid "tar: .: Cannot utime: Operation not permitted" and "tar: .: Cannot change mode to rwxr-xr-x: Operation not permitted"
 			targetTarArgs+=( --no-overwrite-dir )
 		fi
@@ -85,7 +85,7 @@ if [[ "$1" == apache2* ]] || [ "$1" == php-fpm ]; then
 				</IfModule>
 				# END WordPress
 			EOF
-			chown abc:users .htaccess
+			chown "$user:$group" .htaccess
 		fi
 	fi
 

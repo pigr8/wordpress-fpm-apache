@@ -90,7 +90,10 @@ RUN adduser \
     --uid "$PUID" \
     --shell /bin/nologin \
     abc
-    
+
+RUN sed -i 's/user = www-data/user = abc/g' /usr/local/etc/php-fpm.d/www.conf
+RUN sed -i 's/group = www-data/group = users/g' /usr/local/etc/php-fpm.d/www.conf
+
 RUN set -ex; \
 	curl -o wordpress.tar.gz -fSL "https://wordpress.org/wordpress-${WORDPRESS_VERSION}.tar.gz"; \
 	echo "$WORDPRESS_SHA1 *wordpress.tar.gz" | sha1sum -c -; \

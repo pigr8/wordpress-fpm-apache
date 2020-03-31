@@ -90,5 +90,7 @@ COPY entrypoint.sh /usr/local/bin/
 COPY httpd.conf /etc/apache2/
 COPY supervisord.conf /etc/
 
+RUN chmod +x /usr/local/bin/entrypoint.sh
+
 ENTRYPOINT ["entrypoint.sh"]
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf"]

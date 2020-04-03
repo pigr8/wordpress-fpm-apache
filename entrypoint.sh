@@ -18,7 +18,7 @@ sed -i 's/:1000:100:/:'$PUID':100:/g' /etc/passwd
 
 if [ ! -e /var/www/html/index.php ] && [ ! -e /var/www/html/wp-includes/version.php ]; then
     echo "WordPress is missing, installing now."
-	if [[ "${DB_HOST:-db}" && "${DB_NAME:-wordpress}" && "${DB_USER:-wordpress}" && "${DB_PASSWORD:-wordpress}" ]]; then
+	if [ "$DB_HOST" = "db" && "$DB_NAME" = "wordpress" && "$DB_USER" = "wordpress" && "$DB_PASSWORD" = "wordpress" ]]; then
             echo "No configuration provided, installing Wordpress with Wizard support."
 	    rm /usr/src/wordpress/wp-config.php /usr/src/wordpress/wp-secrets.php
 	else
@@ -32,6 +32,7 @@ if [ ! -e /var/www/html/index.php ] && [ ! -e /var/www/html/wp-includes/version.
     chown -R nobody:users /usr/src/wordpress && \
     cp -R /usr/src/wordpress/* /var/www/html && \
     chown -R nobody:users /var/www/html
+    echo "Done, Wordpress is ready to use."
 fi
 
 unset e

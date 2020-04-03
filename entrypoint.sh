@@ -27,7 +27,7 @@ if [ ! -e /var/www/html/index.php ] && [ ! -e /var/www/html/wp-includes/version.
 	    sed -i "s/'DB_HOST', 'db'/'DB_HOST', '$DB_HOST'/g" /usr/src/wordpress/wp-config.php && \
             sed -i "s/'DB_NAME', 'wordpress'/'DB_NAME', '$DB_NAME'/g" /usr/src/wordpress/wp-config.php && \
             sed -i "s/'DB_USER', 'wordpress'/'DB_USER', '$DB_USER'/g" /usr/src/wordpress/wp-config.php && \
-            sed -i "s/'DB_PASSWORD', 'wordpress'/'DB_PASSWORD', '$DB_PASSWORD'/g" /usr/src/wordpress/wp-config.php && \
+            sed -i "s/'DB_PASSWORD', 'wordpress'/'DB_PASSWORD', '$DB_PASSWORD'/g" /usr/src/wordpress/wp-config.php
         fi
     chown -R nobody:users /usr/src/wordpress && \
     cp -R /usr/src/wordpress/* /var/www/html && \

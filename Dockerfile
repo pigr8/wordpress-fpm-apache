@@ -17,6 +17,8 @@ RUN apk add --no-cache \
 		bash \
 # BusyBox sed is not sufficient for some of our sed expressions
 		sed \
+# Needed for adding timezones and fixing localtime
+		tzdata \
 # Ghostscript is required for rendering PDF previews
 		ghostscript \
 # Apache2 with FPM, SSL and HTTP/2 support
@@ -115,6 +117,9 @@ RUN curl -o /usr/bin/wp https://raw.githubusercontent.com/wp-cli/builds/gh-pages
 
 # Setting up Apache2 and PHP
 COPY config/httpd.conf /etc/apache2/
+
+# Setting up 
+COPY mytimezone /etc/localtime
 
 # Setting up the Container and Supervisor
 COPY entrypoint.sh /usr/bin/

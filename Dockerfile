@@ -48,7 +48,7 @@ RUN set -ex; \
 		opcache \
 		zip \
 	; \
-	pecl install imagick-3.4.4 mcrypt; \
+	pecl install imagick-3.4.4; \
 	docker-php-ext-enable imagick; \
 	\
 	runDeps="$( \

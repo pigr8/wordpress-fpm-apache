@@ -1,7 +1,11 @@
 #!/bin/bash
 set -euo pipefail
 
+# Applying desidered PUID to user Nobody
 sed -i 's/:1000:100:/:'$PUID':100:/g' /etc/passwd
+
+# Fixing localtime system wide
+export TZ=$TZ
 
 if [ ! -e /var/www/html/index.php ] && [ ! -e /var/www/html/wp-includes/version.php ]; then
     echo "WordPress is missing, installing now."

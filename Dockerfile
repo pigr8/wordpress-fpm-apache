@@ -89,7 +89,7 @@ RUN { \
 
 VOLUME /var/www/html
 
-ENV DB_HOST localhost
+ENV DB_HOST db
 ENV DB_NAME wordpress
 ENV DB_USER wordpress
 ENV DB_PASSWORD wordpress

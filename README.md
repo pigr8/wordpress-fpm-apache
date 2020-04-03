@@ -8,7 +8,7 @@ This docker image is build from Alpine base image, with PHP-FPM 7.4.4 with and A
 ```
 docker run -d -p 8080:80 -e "DB_HOST=localhost" -e "DB_NAME=wordpress" \
 -e "DB_USER=wordpress" -e "DB_PASSWORD=wordpress" -e "PUID=1000" \
--v data_dir:/var/www/wordpress/wp-content --name Wordpress pigr8/wordpress-apache-fpm-alpine
+-e "TZ=Europe/Rome" --name Wordpress pigr8/wordpress-apache-fpm-alpine
 ```
 
 
@@ -21,4 +21,4 @@ It has various security fixes and is best used behind a SSL Termination (like HA
 To get Shell Access inside the container
 ------------------------------------
 To get access as root user
-```docker exec -it <container-name> /bin/bash```
+```docker exec -it <container-name> bash```

@@ -95,9 +95,9 @@ ENV TZ Europe/Rome
 ENV PUID 1000
 
 # Fixes uid/gid of nobody
-RUN sed -i 's/:65534:65534:nobody:\/:/:1000:100:nobody:\/var\/www:/g' /etc/passwd
-#RUN sed -i 's/user = www-data/user = nobody/g' /usr/local/etc/php-fpm.d/www.conf
-#RUN sed -i 's/group = www-data/group = users/g' /usr/local/etc/php-fpm.d/www.conf
+RUN sed -i 's/:65534:65534:nobody:\/:/:1000:100:nobody:\/var\/www:/g' /etc/passwd &&\
+    sed -i 's/user = www-data/user = nobody/g' /usr/local/etc/php-fpm.d/www.conf && \
+    sed -i 's/group = www-data/group = users/g' /usr/local/etc/php-fpm.d/www.conf
 
 # Setting up Wordpress SRC and copy default configs
 RUN set -ex; \

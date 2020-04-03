@@ -23,5 +23,5 @@ if [ ! -e /var/www/html/index.php ] && [ ! -e /var/www/html/wp-includes/version.
     echo "Done, Wordpress is ready to use."
 fi
 
-unset e
+unset DB_HOST DB_NAME DB_USER DB_PASSWORD PUID TZ
 exec "$@"

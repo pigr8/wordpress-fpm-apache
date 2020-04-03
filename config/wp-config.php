@@ -1,6 +1,10 @@
 <?php
 
 // ** MySQL settings - You can get this info from your web host ** //
+
+/** MySQL hostname */
+define( 'DB_HOST', 'localhost' );
+
 /** The name of the database for WordPress */
 define( 'DB_NAME', 'wordpress' );
 
@@ -9,9 +13,6 @@ define( 'DB_USER', 'wordpress' );
 
 /** MySQL database password */
 define( 'DB_PASSWORD', 'wordpress' );
-
-/** MySQL hostname */
-define( 'DB_HOST', 'localhost' );
 
 /** Database Charset to use in creating database tables. */
 define( 'DB_CHARSET', 'utf8' );
@@ -28,7 +29,7 @@ define( 'FS_METHOD', 'direct' );
  * You can have multiple installations in one database if you give each
  * a unique prefix. Only numbers, letters, and underscores please!
  */
-$table_prefix = 'tp_';
+$table_prefix = 'wp_';
 
 /**
  * For developers: WordPress debugging mode.

@@ -119,7 +119,7 @@ RUN curl -o /usr/bin/wp https://raw.githubusercontent.com/wp-cli/builds/gh-pages
 COPY config/httpd.conf /etc/apache2/
 
 # Setting up 
-COPY mytimezone /etc/localtime
+# COPY mytimezone /etc/localtime
 
 # Setting up the Container and Supervisor
 COPY entrypoint.sh /usr/bin/

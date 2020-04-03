@@ -103,7 +103,7 @@ RUN sed -i 's/:65534:65534:nobody:\/:/:1000:100:nobody:\/var\/www:/g' /etc/passw
 RUN set -ex; \
 	curl -o latest.tar.gz -fSL "https://wordpress.org/latest.tar.gz"; \
 	tar -xzf latest.tar.gz -C /usr/src/; \
-	rm wordpress.tar.gz
+	rm latest.tar.gz
 COPY config/wp-config.php /usr/src/wordpress
 COPY config/wp-secrets.php /usr/src/wordpress
 RUN chmod 644 /usr/src/wordpress/wp-config.php /usr/src/wordpress/wp-secrets.php; \

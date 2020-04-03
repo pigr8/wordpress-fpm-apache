@@ -44,7 +44,6 @@ RUN set -ex; \
 	docker-php-ext-install -j "$(nproc)" \
 		bcmath \
 		exif \
-		gd \
 		mysqli \
 		opcache \
 		zip \

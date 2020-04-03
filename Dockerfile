@@ -74,37 +74,42 @@ RUN { \
 		echo 'html_errors = Off'; \
 	} > /usr/local/etc/php/conf.d/error-logging.ini
 
-VOLUME /var/www/html
+VOLUME /var/www/wordpress
 
-ENV WORDPRESS_VERSION 5.3.2
-ENV WORDPRESS_SHA1 fded476f112dbab14e3b5acddd2bcfa550e7b01b
+ENV WORDPRESS_DB_HOST localhost
+ENV WORDPRESS_DB_NAME wordpress
+ENV WORDPRESS_DB_USER wordpress
+ENV WORDPRESS_DB_PASS wordpress
+ENV TZ Europe/Rome
+ENV PUID 1000
 
-RUN adduser \
-    --disabled-password \
-    --gecos abc \
-    --home /var/www \
-    --ingroup users \
-    --no-create-home \
-    --uid 1026 \
-    --shell /bin/nologin \
-    abc
+# Fixes uid/gid of nobody
+RUN sed -i 's/:65534:65534:nobody:\/:/:1000:100:nobody:\/var\/www:/g' /etc/passwd
+#RUN sed -i 's/user = www-data/user = nobody/g' /usr/local/etc/php-fpm.d/www.conf
+#RUN sed -i 's/group = www-data/group = users/g' /usr/local/etc/php-fpm.d/www.conf
 
-RUN sed -i 's/user = www-data/user = abc/g' /usr/local/etc/php-fpm.d/www.conf
-RUN sed -i 's/group = www-data/group = users/g' /usr/local/etc/php-fpm.d/www.conf
-
+# Setting up Wordpress SRC and copy default configs
 RUN set -ex; \
-	curl -o wordpress.tar.gz -fSL "https://wordpress.org/wordpress-${WORDPRESS_VERSION}.tar.gz"; \
-	echo "$WORDPRESS_SHA1 *wordpress.tar.gz" | sha1sum -c -; \
-# upstream tarballs include ./wordpress/ so this gives us /usr/src/wordpress
-	tar -xzf wordpress.tar.gz -C /usr/src/; \
-	rm wordpress.tar.gz; \
-	chown -R abc:users /usr/src/wordpress
+	curl -o latest.tar.gz -fSL "https://wordpress.org/latest.tar.gz"; \
+	tar -xzf latest.tar.gz -C /usr/src/; \
+	rm wordpress.tar.gz
+COPY config/wp-config.php /usr/src/wordpress; \
+     config/wp-secrets.php /usr/src/wordpress
+RUN chmod 644 /usr/src/wordpress/wp-config.php /usr/src/wordpress/wp-secrets.php; \
+    chown -R nobody:users /usr/src/wordpress
 
-COPY entrypoint.sh /usr/local/bin/
+# Add WP CLI to the system
+RUN curl -o /usr/bin/wp https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
+    && chmod +x /usr/bin/wp
+
+COPY entrypoint.sh /usr/bin/
 COPY httpd.conf /etc/apache2/
 COPY supervisord.conf /etc/
 
-RUN chmod +x /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/bin/entrypoint.sh
+
+EXPOSE 80
+EXPOSE 443
 
 ENTRYPOINT ["entrypoint.sh"]
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf"]

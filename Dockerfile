@@ -93,10 +93,10 @@ ENV DB_PASSWORD wordpress
 ENV TZ Europe/Rome
 ENV PUID 1000
 
-# Fixes uid/gid of nobody
+# Fixes uid/gid of nobody, clearing unused users and groups
 RUN sed -i 's/:65534:65534:nobody:\/:/:1000:100:nobody:\/var\/www:/g' /etc/passwd && \
-    sed -i '/^\s*www-data/ d' /etc/passwd && \
-    sed -i '/^\s*apache/ d' /etc/passwd && \
+    sed -i '/^\s*www-data/ d' /etc/passwd /etc/group && \
+    sed -i '/^\s*apache/ d' /etc/passwd /etc/group && \
     sed -i 's/user = www-data/user = nobody/g' /usr/local/etc/php-fpm.d/www.conf && \
     sed -i 's/group = www-data/group = users/g' /usr/local/etc/php-fpm.d/www.conf
 

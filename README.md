@@ -6,8 +6,9 @@ This docker image is build from Alpine base image, with PHP-FPM 7.4.4 with and A
 # Usage
 
 ```
-docker run -d --name Wordpress -p 8080:80 -e "DB_HOST=db" -e "DB_NAME=wordpress" -e "DB_USER=wordpress" -e "DB_PASSWORD=wordpress" \
--e "PUID=1000" -e "TZ=Europe/Rome" -v data_path:/var/www/html pigr8/wordpress-apache-fpm-alpine
+docker run -d --name Wordpress -p 8080:80 -e "DB_HOST=db" -e "DB_NAME=wordpress" -e "DB_USER=wordpress" \
+-e "DB_PASSWORD=wordpress" -e "PUID=1000" -e "TZ=Europe/Rome" -v data_path:/var/www/html \
+--restart=unless-stopped pigr8/wordpress-apache-fpm-alpine
 ```
 
 

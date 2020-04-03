@@ -87,10 +87,10 @@ RUN { \
 
 VOLUME /var/www/wordpress
 
-ENV WORDPRESS_DB_HOST localhost
-ENV WORDPRESS_DB_NAME wordpress
-ENV WORDPRESS_DB_USER wordpress
-ENV WORDPRESS_DB_PASS wordpress
+ENV DB_HOST localhost
+ENV DB_NAME wordpress
+ENV DB_USER wordpress
+ENV DB_PASSWORD wordpress
 ENV TZ Europe/Rome
 ENV PUID 1000
 

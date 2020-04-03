@@ -87,7 +87,7 @@ RUN { \
 		echo 'html_errors = Off'; \
 	} > /usr/local/etc/php/conf.d/error-logging.ini
 
-VOLUME /var/www/wordpress
+VOLUME /var/www/html
 
 ENV DB_HOST localhost
 ENV DB_NAME wordpress

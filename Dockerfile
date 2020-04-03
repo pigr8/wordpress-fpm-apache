@@ -1,5 +1,16 @@
 FROM php:7.4-fpm-alpine
 
+LABEL maintainer="Robbio <github.com/pigr8>" \
+      architecture="amd64/x86_64" \
+      alpine-version="3.11.2" \
+      apache-version="2.4.43" \
+      php-fpm-version="7.4" \
+      wordpress-version="latest" \
+      org.opencontainers.image.title="wordpress-apache-fpm-alpine" \
+      org.opencontainers.image.description="Wordpress image running on Alpine Linux." \
+      org.opencontainers.image.url="https://hub.docker.com/r/pigr8/wordpress-apache-fpm-alpine/" \
+      org.opencontainers.image.source="https://github.com/pigr8/wordpress-apache-fpm-alpine"
+
 # persistent dependencies
 RUN apk add --no-cache \
 # in theory, docker-entrypoint.sh is POSIX-compliant, but priority is a working, consistent image
@@ -8,7 +19,7 @@ RUN apk add --no-cache \
 		sed \
 # Ghostscript is required for rendering PDF previews
 		ghostscript \
-# Apache2 with FPM and HTTP/2 support
+# Apache2 with FPM, SSL and HTTP/2 support
 		apache2 \
 		apache2-proxy \
 		apache2-http2 \
@@ -93,8 +104,8 @@ RUN set -ex; \
 	curl -o latest.tar.gz -fSL "https://wordpress.org/latest.tar.gz"; \
 	tar -xzf latest.tar.gz -C /usr/src/; \
 	rm wordpress.tar.gz
-COPY config/wp-config.php /usr/src/wordpress; \
-     config/wp-secrets.php /usr/src/wordpress
+COPY config/wp-config.php /usr/src/wordpress
+COPY config/wp-secrets.php /usr/src/wordpress
 RUN chmod 644 /usr/src/wordpress/wp-config.php /usr/src/wordpress/wp-secrets.php; \
     chown -R nobody:users /usr/src/wordpress
 
@@ -102,10 +113,12 @@ RUN chmod 644 /usr/src/wordpress/wp-config.php /usr/src/wordpress/wp-secrets.php
 RUN curl -o /usr/bin/wp https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
     && chmod +x /usr/bin/wp
 
-COPY entrypoint.sh /usr/bin/
-COPY httpd.conf /etc/apache2/
-COPY supervisord.conf /etc/
+# Setting up Apache2 and PHP
+COPY config/httpd.conf /etc/apache2/
 
+# Setting up the Container and Supervisor
+COPY entrypoint.sh /usr/bin/
+COPY config/supervisord.conf /etc/
 RUN chmod +x /usr/bin/entrypoint.sh
 
 EXPOSE 80

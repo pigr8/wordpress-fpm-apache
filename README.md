@@ -1,6 +1,6 @@
 # Introduction
 
-This docker image is build from Alpine base image, with PHP-FPM 7.4.4 with and Apache 2.4.43, and runs Wordpress 5.4 latest version.
+This docker image is build from Alpine base image, with PHP-FPM 7.4.4 with and Apache 2.4.43, and runs Wordpress 5.4.1 latest version.
 
 
 # Usage

@@ -1,15 +1,4 @@
-FROM php:7.4-fpm-alpine
-
-LABEL maintainer="Robbio <github.com/pigr8>" \
-      architecture="amd64/x86_64" \
-      alpine-version="3.11.2" \
-      apache-version="2.4.43" \
-      php-fpm-version="7.4.4" \
-      wordpress-version="5.4.1" \
-      org.opencontainers.image.title="wordpress-apache-fpm-alpine" \
-      org.opencontainers.image.description="Wordpress image running on Alpine Linux." \
-      org.opencontainers.image.url="https://hub.docker.com/r/pigr8/wordpress-fpm-apache/" \
-      org.opencontainers.image.source="https://github.com/pigr8/wordpress-fpm-apache"
+FROM php:fpm-alpine
 
 # persistent dependencies
 RUN apk add --no-cache \
